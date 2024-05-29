@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from './service/users.service';
+import { User, UsersService } from './service/users.service';
 
 
 @Component({
@@ -7,23 +7,25 @@ import { UsersService } from './service/users.service';
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
-export class UsersComponent implements OnInit {
-  users: { name: string, email: string}[] = []; // Adjusted type to match the assigned value
+export class UsersComponent {
+  users: { name: string, email: string }[] = []; // Ajuste del tipo para que coincida con la estructura recibida
+  newUser: User = {
+    name: '', email: '', password: '',
+    id: 0
+  }; // Inicializar el nuevo usuario
 
-  constructor(private userService: UsersService) {} // Injected UsersService
+  constructor(private userService: UsersService) { } // Injected UsersService
 
-  ngOnInit(): void {
-    this.getAllUsers();
-  }
-  getAllUsers() {
-    return this.userService.getAllUsers().subscribe(
-      (response: any[]) => {
-        this.users = response.map((user) => ({
+  addUser() {
+    this.userService.createUser(this.newUser).subscribe(
+      (user: User) => {
+        this.users.push({
           name: user.name,
           email: user.email
-        }));
+        });
+        this.newUser = { id: 0, name: '', email: '', password: '' }; // Resetear el formulario
       },
-      (err: any) => console.log(err)
+      (err: any) => console.error(err)
     );
   }
 }

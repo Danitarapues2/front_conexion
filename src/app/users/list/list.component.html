@@ -1,0 +1,14 @@
+<p>list works!</p>
+<div *ngIf="users.length > 0; else noUsers">
+    <ul>
+      <li *ngFor="let user of users">
+        <strong>Name:</strong> {{ user.name }}<br>
+        <strong>Email:</strong> {{ user.email }}<br>
+      </li>
+    </ul>
+  </div>
+  <ng-template #noUsers>
+    <p>No users found.</p>
+  </ng-template>
+  
+  

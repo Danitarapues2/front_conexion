@@ -16,4 +16,9 @@ export class DatabaseService {
     getAllUsers(): Observable<Users[]> {
         return this.http.get<Users[]>(this.baseUrl + '/users');
     }
+
+    createUser(user: Users): Observable<Users> {
+        return this.http.post<Users>(`${this.baseUrl}/users`, user);
+      }
+
 }

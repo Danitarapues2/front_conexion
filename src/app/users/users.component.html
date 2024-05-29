@@ -1,11 +1,17 @@
-<div *ngIf="users.length > 0; else noUsers">
-  <ul>
-    <li *ngFor="let user of users">
-      <strong>Name:</strong> {{ user.name }}<br>
-      <strong>Email:</strong> {{ user.email }}<br>
-    </li>
-  </ul>
-</div>
-<ng-template #noUsers>
-  <p>No users found.</p>
-</ng-template>
+
+<h2>Add User</h2>
+<form (ngSubmit)="addUser()">
+  <div>
+    <label for="name">Username:</label>
+    <input id="name" [(ngModel)]="newUser.name" name="name" required />
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" [(ngModel)]="newUser.email" name="email" required />
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input id="password" [(ngModel)]="newUser.password" name="password" type="password" required />
+  </div>
+  <button type="submit">Add User</button>
+</form>
