@@ -1,18 +1,30 @@
-<h2>Add User</h2>
-<form (ngSubmit)="addUser()">
-  <div>
-    <label for="name">Username:</label>
-    <input id="name" [(ngModel)]="newUser.name" name="name" required />
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input id="email" [(ngModel)]="newUser.email" name="email" required />
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input id="password" [(ngModel)]="newUser.password" name="password" type="password" required />
-  </div>
-  <button type="submit">Add User</button>
-</form>
+<h1>Agregar Usuario</h1>
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="addUser()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input id="name" name="name" pInputText formControlName="name" [(ngModel)]="newUser.name" required />
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" name="email" pInputText formControlName="email" [(ngModel)]="newUser.email" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input id="password" name="password" type="password" pInputText formControlName="password"
+        [(ngModel)]="newUser.password" required />
+    </div>
+    <br>
+    <p-button label="Agregar Usuario" severity="success" styleClass="p-button-success" type="submit"></p-button>
 
-<button> <a href="/list"> Ver Usuarios</a> </button>
+    <p-button label="Ver Usuarios" styleClass="p-button-primary" routerLink="/list"></p-button>
+  </form>
+</div>
+
+
+<p-messages [(value)]="mensajes"></p-messages>
+
+<div *ngIf="data">
+  <label>{{data.name}}</label>
+  <label>{{data.email}}</label>
+</div>

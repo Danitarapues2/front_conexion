@@ -1,18 +1,32 @@
-<p>list works!</p>
+<h1>Lista de Usuarios</h1>
 <div *ngIf="users.length > 0; else noUsers">
-    <ul>
-      <li *ngFor="let user of users">
-        <strong>Name:</strong> {{ user.name }}<br>
-        <strong>Email:</strong> {{ user.email }}<br>
-        <button>Editar</button>
-        <button>Borrar</button>
+  <ul>
+    <li *ngFor="let user of users">
+      <strong>Name:</strong> {{ user.name }}<br>
+      <strong>Email:</strong> {{ user.email }}<br>
+      <button (click)="onEdit(user)">Editar</button>
+      <button (click)="deleteUser(user.id)">Delete</button>
+    </li>
+  </ul>
+</div>
+<ng-template #noUsers>
+  <p>No users found.</p>
+</ng-template>
 
-      </li>
-    </ul>
-  </div>
-  <ng-template #noUsers>
-    <p>No users found.</p>
-  </ng-template>
-  
-  
+<div *ngIf="selectedUser">
+  <h3>Editar Usuario</h3>
+  <form (ngSubmit)="updateUser()">
+    <label for="name">Name:</label>
+    <input type="text" [(ngModel)]="selectedUser.name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" [(ngModel)]="selectedUser.email" name="email" required>
+
+    <label for="password">Password:</label>
+    <input type="password" [(ngModel)]="selectedUser.password" name="password" required>
+
+    <button type="submit">Actualizar</button>
+    <button type="button" (click)="cancelEdit()">Cancelar</button>
+  </form>
+</div>
 <button> <a href="/crear"> Crear Usuarios</a> </button>
